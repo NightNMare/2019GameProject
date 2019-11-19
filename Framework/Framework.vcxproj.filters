@@ -94,7 +94,6 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="FontRenderer.cpp">
       <Filter>Components\Font</Filter>
     </ClCompile>
@@ -102,6 +101,7 @@
       <Filter>Components\Font</Filter>
     </ClCompile>
     <ClCompile Include="FontObject.cpp" />
+    <ClCompile Include="WallObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -176,7 +176,6 @@
     <ClInclude Include="InputManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene2.h" />
     <ClInclude Include="FontRenderer.h">
       <Filter>Components\Font</Filter>
     </ClInclude>
@@ -184,6 +183,7 @@
       <Filter>Components\Font</Filter>
     </ClInclude>
     <ClInclude Include="FontObject.h" />
+    <ClInclude Include="WallObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">
