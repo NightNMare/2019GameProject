@@ -11,7 +11,7 @@ void GameScene::Initialize()
 	int winwidth = Framework::GetInstance().GetWinApp().GetScreenWidth();
 	int winheight = Framework::GetInstance().GetWinApp().GetScreenHeight();
 	
-	int a[] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	int a[] = { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,

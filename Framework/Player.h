@@ -4,7 +4,8 @@
 #include "Scene.h"
 #include "WallObject.h"
 #include <vector>
-
+#include "TimeManager.h"
+#define dt TimeManager::GetDeltaTime()
 //Player는 임의로 생성한 객체입니다.
 //게임 내의 오브젝트는 GameObject객체를 상속받아 생성하여야합니다.
 class Player :
@@ -12,6 +13,7 @@ class Player :
 {
 public:
 	Vector2 velocity;
+	Vector2 bfpos;
 	float moveSpeed;
 	int state;
 
@@ -19,6 +21,10 @@ public:
 	std::vector<WallObject*> walls;
 
 	int playerNumber; //1,2,3,4
+	int MaxjumpCount = 2;
+	int jumpCount = 0;
+	float jumpPower = 1350.0f;  //////////////////////////////////////////////
+	bool IsinAir = false;
 
 	Player();					//Player생성자
 	virtual void Update();		//Update: 매 프레임 호출됩니다.

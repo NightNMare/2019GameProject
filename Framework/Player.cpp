@@ -5,7 +5,6 @@
 #include "AnimationRenderer.h"
 #include "ListAnimation.h"
 #include "SheetAnimation.h"
-#include "TimeManager.h"
 
 #define dt TimeManager::GetDeltaTime()
 
@@ -44,20 +43,36 @@ Player::Player()
 
 void Player::Update()
 {
-	state = 0;
+	//state = 0;
 	//키 입력받기
 	//InputManager::GetMyKeyState(키값), 0보다 클 경우: 눌림, 0: 눌리지 않음, -1: 키를 방금 막 떼었음
+
 	if (InputManager::GetMyKeyState(VK_RIGHT)) {
 		transform->position.x += moveSpeed * dt;
 		transform->SetScale(1.0f, 1.0);
-		state = 1;
 	}
 	if (InputManager::GetMyKeyState(VK_LEFT)) {
 		transform->position.x -= moveSpeed * dt;
 		transform->SetScale(-1.0f, 1.0);
-		state = -1;
+	}
+	if (InputManager::GetMyKeyState(VK_SPACE)) {
+		if (MaxjumpCount > jumpCount) {
+			addForceY(-1 * jumpPower*dt);
+			std::cout << jumpPower << std::endl;//////////////////////////////////////////////
+		}else{
+
+		}
+
+	}
+	if (InputManager::GetKeyUp(VK_SPACE)) {
+		if (jumpCount < MaxjumpCount)
+			jumpCount++;
+		if (!IsinAir) {
+			IsinAir = true;
+		}
 	}
 	addForceY(1350.0f* dt);
+	
 	//Scene 전환
 	//if (InputManager::GetMyKeyState(VK_SPACE))
 		//Scene::ChangeScene(new GameScene());
@@ -66,68 +81,36 @@ void Player::Update()
 
 void Player::LateUpdate()
 {
-	//static int count = 0;
-	//if (col.Intersected(enemy->col2))
-	//{
-	//	printf("아야야 충돌중임%d\n",count++);
-	//}
+	if (velocity.y >= 1200.0f)
+		velocity.y = 1200.0f;
 
-	transform->position += velocity * dt;
-	//if (transform->position.y > 448 - 15) {
-	//	velocity.y = 0;
-	//	transform->position.y = 448 - 15;
-	//}
-	//for (auto a : walls) {
-	//	if (a->rightbottom.x >= transform->position.x && transform->position.x >= a->lefttop.x) {
-	//		if (state == 1) {//벽의 왼쪽과 플레이어가 부딪힘
-	//			transform->position.x = a->lefttop.x;
-	//			state = 0;
-	//		}
-	//		else if (state == -1) {//벽의 오른쪽과 플레이어가 부딪힘
-	//			transform->position.x = a->rightbottom.x;
-	//			state = 0;
-	//		}
-	//		if (a->rightbottom.y >= transform->position.y &&transform->position.y >= a->lefttop.y) {
-	//			if (velocity.y > 0) {//벽의 위쪽과 부딪힘
-	//				transform->position.y = a->lefttop.y-14.5f;
-	//				velocity.y = 0;
-	//			}
-	//			else if (velocity.y < 0) {//벽의 밑쪽과 부딪힘
-	//				transform->position.y = a->rightbottom.y+14.5f;
-	//				velocity.y = 0;
-	//			}
-	//		}
-	//	}
-	//	/*if (col.Intersected(a->wallcol)) {
-	//		std::cout << "ojife" << std::endl;
-	//	}*/
-	//}
-	for (auto a : walls) {
-		if (col.Intersected(a->wallcol)) {
-
-			if (velocity.y > 0) {//벽의 위쪽과 부딪힘
-				transform->position.y = a->lefttop.y - 14.6f;
+	transform->position.y += velocity.y * dt;
+	for (auto& w : walls) {
+		if (w->wallcol.Intersected(col)) {
+			Vector2 vec = w->transform->position - transform->position;
+			float angle = atan2(vec.x, vec.y);
+			if (angle < 0.8f && angle >= -0.8f) { //바닥에 닿았을때
+				velocity.y = 0;
+				jumpCount = 0;
+				IsinAir = false;
+				//p->jumpCount = p->maxJumpCount;
+				transform->position.y = w->transform->position.y - 16.0f - 14.5f;
+			}
+			else if (angle < -0.8f && angle >= -2.35f) {
+				transform->position.x += moveSpeed * dt;
+			}
+			else if (angle < 2.35f && angle >= 0.8f) {
+				transform->position.x -= moveSpeed * dt;
+			}
+			else {
+				transform->position.y += moveSpeed * dt;
 				velocity.y = 0;
 			}
-			else if (velocity.y < 0) {//벽의 밑쪽과 부딪힘
-				transform->position.y = a->rightbottom.y + 14.6f;
-				velocity.y = 0;
-			}
-			if (state == 1) {//벽의 왼쪽과 플레이어가 부딪힘
-				transform->position.x = a->lefttop.x - 16.1f;
-			}
-			else if (state == -1) {//벽의 오른쪽과 플레이어가 부딪힘
-				transform->position.x = a->rightbottom.x + 16.1f;
-			}
-
 		}
-		//if (col.Intersected(a->wallcol)) {
-		//	std::cout << state << ":" << velocity.y << std::endl;
-
-		//	//std::cout << "ojife" << std::endl;
-		//}
 	}
+
 }
+
 
 void Player::setForceX(float x)
 {
