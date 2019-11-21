@@ -23,9 +23,10 @@ public:
 	int playerNumber; //1,2,3,4
 	int MaxjumpCount = 2;
 	int jumpCount = 0;
-	float jumpPower = 1350.0f;  //////////////////////////////////////////////
+	float dtLimit = 0.0f;
+	float jumpPower = 9000.0f;  
 	bool IsinAir = false;
-
+	 
 	Player();					//Player생성자
 	virtual void Update();		//Update: 매 프레임 호출됩니다.
 	virtual void LateUpdate();	//LateUpdate: 매 프레임 Update, Render가 실행된 이후 호출됩니다.

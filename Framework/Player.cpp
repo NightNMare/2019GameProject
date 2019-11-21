@@ -55,21 +55,33 @@ void Player::Update()
 		transform->position.x -= moveSpeed * dt;
 		transform->SetScale(-1.0f, 1.0);
 	}
+	if (InputManager::GetKeyDown(VK_SPACE)) {
+		if (MaxjumpCount-1 == jumpCount) {
+			velocity.y = 100.0f;
+		}
+	}
+	static int a = 0;
 	if (InputManager::GetMyKeyState(VK_SPACE)) {
 		if (MaxjumpCount > jumpCount) {
-			addForceY(-1 * jumpPower*dt);
-			std::cout << jumpPower << std::endl;//////////////////////////////////////////////
-		}else{
-
+			if (dtLimit <= 0.5f) { //°ÅÀÇ °°Àº ³ôÀÌµÊ
+				std::cout << a++ << std::endl;
+				addForceY(-1 * jumpPower*dt);
+				jumpPower -= 70000.0f*dt;
+				if (jumpPower <= 0.0f)
+					jumpPower = 0.0f;
+				dtLimit += dt;
+			}
 		}
-
 	}
-	if (InputManager::GetKeyUp(VK_SPACE)) {
+	if ( InputManager::GetKeyUp(VK_SPACE)) {
+		a = 0;
 		if (jumpCount < MaxjumpCount)
 			jumpCount++;
 		if (!IsinAir) {
 			IsinAir = true;
 		}
+		dtLimit = 0.0f;
+		jumpPower = 9000.0f;
 	}
 	addForceY(1350.0f* dt);
 	
@@ -83,8 +95,9 @@ void Player::LateUpdate()
 {
 	if (velocity.y >= 1200.0f)
 		velocity.y = 1200.0f;
-
 	transform->position.y += velocity.y * dt;
+
+
 	for (auto& w : walls) {
 		if (w->wallcol.Intersected(col)) {
 			Vector2 vec = w->transform->position - transform->position;
@@ -97,10 +110,10 @@ void Player::LateUpdate()
 				transform->position.y = w->transform->position.y - 16.0f - 14.5f;
 			}
 			else if (angle < -0.8f && angle >= -2.35f) {
-				transform->position.x += moveSpeed * dt;
+				transform->position.x += moveSpeed * dt; //º®ÀÇ ¿À¸¥ÂÊ°ú ºÎµúÈû
 			}
 			else if (angle < 2.35f && angle >= 0.8f) {
-				transform->position.x -= moveSpeed * dt;
+				transform->position.x -= moveSpeed * dt; //º®ÀÇ ¿ÞÂÊ°ú ºÎµúÈû
 			}
 			else {
 				transform->position.y += moveSpeed * dt;
@@ -108,7 +121,6 @@ void Player::LateUpdate()
 			}
 		}
 	}
-
 }
 
 
