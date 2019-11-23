@@ -29,6 +29,14 @@ public:
 		Circle(const Vector2& center, float radius);
 		Circle(float x, float y, float radius);
 	};
+	struct Triangle
+	{
+		Vector2 top;
+		Vector2 left, right;
+
+		Triangle();
+		Triangle(const Vector2& top, const Vector2& left, const Vector2& right);
+	};
 public:
 	Collider(Transform& transform);		//콜라이더 객체는 Transform을 기준으로 충돌처리를 진행합니다.
 public:
@@ -40,4 +48,5 @@ public:
 	virtual bool Intersected(const AABBBox& box) = 0;
 	virtual bool Intersected(const Circle& circle) = 0;
 	virtual bool Intersected(const Vector2& vector) = 0;
+	virtual bool Intersected(const Triangle& tri) = 0;
 };

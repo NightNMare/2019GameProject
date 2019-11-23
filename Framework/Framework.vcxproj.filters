@@ -66,7 +66,6 @@
     <ClCompile Include="CircleCollider.cpp">
       <Filter>Components\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Collision.cpp">
       <Filter>Components\Collider</Filter>
     </ClCompile>
@@ -100,8 +99,12 @@
     <ClCompile Include="Font.cpp">
       <Filter>Components\Font</Filter>
     </ClCompile>
-    <ClCompile Include="FontObject.cpp" />
     <ClCompile Include="WallObject.cpp" />
+    <ClCompile Include="TriangleCollider.cpp" />
+    <ClCompile Include="Trap.cpp" />
+    <ClCompile Include="SaveObject.cpp" />
+    <ClCompile Include="YouDieText.cpp" />
+    <ClCompile Include="RestartText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -148,7 +151,6 @@
     <ClInclude Include="CircleCollider.h">
       <Filter>Components\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="TestObject.h" />
     <ClInclude Include="Collision.h">
       <Filter>Components\Collider</Filter>
     </ClInclude>
@@ -182,8 +184,12 @@
     <ClInclude Include="Font.h">
       <Filter>Components\Font</Filter>
     </ClInclude>
-    <ClInclude Include="FontObject.h" />
     <ClInclude Include="WallObject.h" />
+    <ClInclude Include="TriangleCollider.h" />
+    <ClInclude Include="Trap.h" />
+    <ClInclude Include="SaveObject.h" />
+    <ClInclude Include="YouDieText.h" />
+    <ClInclude Include="RestartText.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

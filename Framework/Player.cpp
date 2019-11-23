@@ -11,7 +11,7 @@
 Player::Player()
 	:GameObject(L"player.png"),		//GameObject(animRenderer = new AnimationRenderer), 애니메이션렌더러를 사용합니다. 일반적인 이미지 렌더러를 사용하시는 것은 TestObject를 참고하세요.
 	moveSpeed(3.0f*80.0f),
-	col(*transform, Vector2(32.0f, 29.0f))
+	col(*transform, Vector2(32.0f, 29.0f))// 32, 29
 {
 	//애니메이션 적용 방법
 	//ListAnimation(사진 여러장으로 애니메이션을 만듦)
@@ -35,7 +35,7 @@ Player::Player()
 	//se->LoadFile(L"test.wav");		
 
 	//객체의 위치, 각도, 크기조정은 transform에 등록되어있습니다. Transform.h, GameObject.h 참고
-	transform->SetPosition(300.0f, 300.0f);	//Player의 초기 위치 설정
+	transform->SetPosition(firstPos.x,firstPos.y);	//Player의 초기 위치 설정
 
 	//현재 Scene을 얻어오고 싶으시다면 아래와 같이 사용하시면 됩니다.
 	GameScene& scene = (GameScene&)Scene::GetCurrentScene();
@@ -47,44 +47,47 @@ void Player::Update()
 	//키 입력받기
 	//InputManager::GetMyKeyState(키값), 0보다 클 경우: 눌림, 0: 눌리지 않음, -1: 키를 방금 막 떼었음
 
-	if (InputManager::GetMyKeyState(VK_RIGHT)) {
-		transform->position.x += moveSpeed * dt;
-		transform->SetScale(1.0f, 1.0);
-	}
-	if (InputManager::GetMyKeyState(VK_LEFT)) {
-		transform->position.x -= moveSpeed * dt;
-		transform->SetScale(-1.0f, 1.0);
-	}
-	if (InputManager::GetKeyDown(VK_SPACE)) {
-		if (MaxjumpCount-1 == jumpCount) {
-			velocity.y = 100.0f;
+	if (!isDie) {
+		if (InputManager::GetMyKeyState(VK_RIGHT)) {
+			transform->position.x += moveSpeed * dt;
+			transform->SetScale(1.0f, 1.0);
 		}
-	}
-	static int a = 0;
-	if (InputManager::GetMyKeyState(VK_SPACE)) {
-		if (MaxjumpCount > jumpCount) {
-			if (dtLimit <= 0.5f) { //거의 같은 높이됨
-				std::cout << a++ << std::endl;
-				addForceY(-1 * jumpPower*dt);
-				jumpPower -= 70000.0f*dt;
-				if (jumpPower <= 0.0f)
-					jumpPower = 0.0f;
-				dtLimit += dt;
+		if (InputManager::GetMyKeyState(VK_LEFT)) {
+			transform->position.x -= moveSpeed * dt;
+			transform->SetScale(-1.0f, 1.0);
+		}
+		if (InputManager::GetKeyDown(VK_SPACE)) {
+			if (MaxjumpCount - 1 == jumpCount) {
+				velocity.y = 100.0f;
 			}
 		}
-	}
-	if ( InputManager::GetKeyUp(VK_SPACE)) {
-		a = 0;
-		if (jumpCount < MaxjumpCount)
-			jumpCount++;
-		if (!IsinAir) {
-			IsinAir = true;
+		static int a = 0;
+		if (InputManager::GetMyKeyState(VK_SPACE)) {
+			if (MaxjumpCount > jumpCount) {
+				if (dtLimit <= 0.5f) {
+					addForceY(-1 * jumpPower*dt);
+					jumpPower -= 70000.0f*dt;
+					if (jumpPower <= 0.0f)
+						jumpPower = 0.0f;
+					dtLimit += dt;
+				}
+			}
 		}
-		dtLimit = 0.0f;
-		jumpPower = 9000.0f;
+		if (InputManager::GetKeyUp(VK_SPACE)) {
+			a = 0;
+			if (jumpCount < MaxjumpCount)
+				jumpCount++;
+			if (!IsinAir) {
+				IsinAir = true;
+			}
+			dtLimit = 0.0f;
+			jumpPower = 9000.0f;
+		}
+		addForceY(1350.0f* dt);
 	}
-	addForceY(1350.0f* dt);
-	
+	if (InputManager::GetKeyDown('R')) {
+		RestartScene();
+	}
 	//Scene 전환
 	//if (InputManager::GetMyKeyState(VK_SPACE))
 		//Scene::ChangeScene(new GameScene());
@@ -93,10 +96,10 @@ void Player::Update()
 
 void Player::LateUpdate()
 {
+
 	if (velocity.y >= 1200.0f)
 		velocity.y = 1200.0f;
 	transform->position.y += velocity.y * dt;
-
 
 	for (auto& w : walls) {
 		if (w->wallcol.Intersected(col)) {
@@ -121,6 +124,50 @@ void Player::LateUpdate()
 			}
 		}
 	}
+	for (auto& t : traps) {
+		if (t->col->Intersected(col)) {
+			isDie = true;
+			transform->SetScale(0.0f, 0.0f);
+		}
+	}
+	for (auto& s : saves) {
+		if (s->col.Intersected(col)) {
+			saveNumber = s->savenum;
+			for (auto& a : saves) {
+				if (a->savenum == saveNumber) {
+					a->transform->SetScale(0.0f, 0.0f);
+				}
+				else {
+					a->transform->SetScale(1.0f,1.0f);
+				}
+			}
+		}
+	}
+	if (isDie) { //죽었을때
+		GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
+		gs.ydt->transform->SetScale(1.0f, 1.0f);
+		gs.white->transform->SetScale(1.0f, 1.0f);
+		gs.rst->transform->SetScale(1.0f, 1.0f);
+	}
+}
+
+void Player::RestartScene()
+{
+	isDie = false;
+	velocity.y = 0;
+	transform->SetScale(1.0f, 1.0f);
+	Vector2 tmp;
+	if (saveNumber != -1) {
+		tmp = saves[saveNumber]->pos;
+	}
+	else {
+		tmp = firstPos;
+	}
+	transform->SetPosition(tmp.x, tmp.y);
+	GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
+	gs.ydt->transform->SetScale(0.0f, 0.0f);
+	gs.white->transform->SetScale(0.0f, 0.0f);
+	gs.rst->transform->SetScale(0.0f, 0.0f);
 }
 
 

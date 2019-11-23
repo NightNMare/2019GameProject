@@ -22,6 +22,9 @@ AABBCollider::AABBCollider(Transform& transform, float left, float top, float ri
 	: Collider(transform), boundingBox(left,top,right,bottom)
 {
 }
+bool AABBCollider::Intersected(const Triangle& tri) {
+	return Collision::Intersected(tri, GetTransformedBox());
+}
 
 bool AABBCollider::Intersected(Collider& col)
 {

@@ -7,6 +7,9 @@
 void GameScene::Initialize()
 {
 	std::vector<WallObject*> walls;
+	std::vector<Trap*> traps;
+	std::vector<SaveObject*> saves;
+	
 	
 	int winwidth = Framework::GetInstance().GetWinApp().GetScreenWidth();
 	int winheight = Framework::GetInstance().GetWinApp().GetScreenHeight();
@@ -18,19 +21,20 @@ void GameScene::Initialize()
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+				1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1,
+				1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+				1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
 				1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 	};
 	int b = 0;
+	int savenum = 0;
 	for (int i = 16; i <= winheight; i += 32) {
 		for (int j = 16; j <= winwidth; j += 32) {
-			if (a[b++] == 1){
+			if (a[b] == 1){
 				WallObject* w1 = (WallObject*)PushBackGameObject(new WallObject());
 
 				w1->lefttop.x = j - 16.0f;
@@ -42,12 +46,36 @@ void GameScene::Initialize()
 
 				walls.push_back(w1);
 			}
+			else if (a[b] == 2) {
+				Trap* trap = (Trap*)PushBackGameObject(new Trap());
+				trap->transform->SetPosition((float)j, (float)i);
+				traps.push_back(trap);
+			}
+			else if (a[b] == 3) {
+				SaveObject* save = (SaveObject*)PushBackGameObject(new SaveObject());
+				save->pos = { (float)j,(float)i };
+				save->transform->SetPosition((float)j, (float)i);
+				save->savenum = savenum++;
+				saves.push_back(save);
+			}
+			b++;
 		}
 	}
-	
-
 	player = (Player*)PushBackGameObject(new Player());			//오브젝트를 생성하고 싶다면, PushBackGameObject함수를 호출하여 생성합니다.
+	player->traps = traps;
 	player->walls = walls;
-	//player->enemy = t;
-	//PushBackGameObject(new FontObject());		//글씨 출력은 FontObject.h, FontObjct.cpp 참고
+	player->saves = saves;
+
+	white = (GameObject*)PushBackGameObject(new GameObject(L"alphawhite65.png"));
+	white->transform->SetPosition(320.0f, 240.0f);
+	white->transform->SetScale(0.0f, 0.0f);
+
+	ydt = (YouDieText*)PushBackGameObject(new YouDieText());
+	ydt->transform->SetPosition(320.0f - 96.0f, 240.0f - 70.0f);
+	ydt->transform->SetScale(0.0f, 0.0f);
+
+	rst = (RestartText*)PushBackGameObject(new RestartText());
+	rst->transform->SetPosition(320.0f-128.0f, 240.0f);
+	rst->transform->SetScale(0.0f, 0.0f);
 }
+

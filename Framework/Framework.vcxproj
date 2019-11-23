@@ -135,9 +135,6 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D2DApp.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FontObject.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -148,16 +145,18 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RestartText.cpp" />
+    <ClCompile Include="SaveObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SheetAnimation.cpp" />
     <ClCompile Include="SoundEvent.cpp" />
-    <ClCompile Include="TestObject.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Trap.cpp" />
+    <ClCompile Include="TriangleCollider.cpp" />
     <ClCompile Include="WallObject.cpp" />
     <ClCompile Include="WinApp.cpp" />
+    <ClCompile Include="YouDieText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABBCollider.h" />
@@ -170,9 +169,6 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="D2DApp.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="FontObject.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="FontRenderer.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="GameObject.h" />
@@ -183,17 +179,19 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RestartText.h" />
+    <ClInclude Include="SaveObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SheetAnimation.h" />
     <ClInclude Include="SoundEvent.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TestObject.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Trap.h" />
+    <ClInclude Include="TriangleCollider.h" />
     <ClInclude Include="WallObject.h" />
     <ClInclude Include="WinApp.h" />
+    <ClInclude Include="YouDieText.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl" />

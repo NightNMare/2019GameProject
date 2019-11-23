@@ -67,3 +67,15 @@ Collider::Circle::Circle(float x, float y, float radius)
 	this->center.y = y;
 	this->radius = radius;
 }
+Collider::Triangle::Triangle()
+{
+	top.SetVector(0, 0);
+	left.SetVector(0, 0);
+	right.SetVector(0, 0);
+}
+
+Collider::Triangle::Triangle(const Vector2& top, const Vector2& left, const Vector2& right) {
+	this->top = top;
+	this->left = left;
+	this->right = right;
+}

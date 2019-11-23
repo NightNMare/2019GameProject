@@ -7,7 +7,7 @@ class AABBCollider :
 public:
 	AABBCollider(Transform& transform, const Vector2& size);
 	AABBCollider(Transform& transform, const Vector2& leftTop, const Vector2& rightBottom);
-	AABBCollider(Transform& transform, float width, float height); //직사각형
+	AABBCollider(Transform& transform, float width, float height); //
 	AABBCollider(Transform& transform, float left, float top, float right, float bottom);
 
 public:
@@ -18,6 +18,7 @@ public:
 	virtual bool Intersected(const AABBBox& box);
 	virtual bool Intersected(const Circle& circle);
 	virtual bool Intersected(const Vector2& vector);
+	virtual bool Intersected(const Triangle& tri);
 
 public:
 	AABBBox GetTransformedBox();
@@ -35,4 +36,3 @@ public:
 
 	virtual void Update() {}
 };
-

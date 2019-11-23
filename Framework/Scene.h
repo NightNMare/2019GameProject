@@ -16,6 +16,7 @@ public:
 	//생성자에서의 오브젝트의 생성 혹은 로드를 추천드리지 않습니다. (오류가 발생할 수 있습니다.)
 	Scene();
 	virtual ~Scene();
+	int SavePoint = 0;
 	
 private:
 	static Scene* currentScene;
