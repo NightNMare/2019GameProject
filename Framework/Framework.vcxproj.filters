@@ -28,6 +28,9 @@
     <Filter Include="GameScene1">
       <UniqueIdentifier>{60c01900-c7c5-4815-9b79-f8e592b6e76c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameScene2">
+      <UniqueIdentifier>{7fceecc6-79b0-4234-b33b-b60e65cdbf8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D2DApp.cpp">
@@ -113,6 +116,14 @@
       <Filter>GameScene1</Filter>
     </ClCompile>
     <ClCompile Include="JumpAdder.cpp" />
+    <ClCompile Include="GameScene2.cpp">
+      <Filter>GameScene2</Filter>
+    </ClCompile>
+    <ClCompile Include="Player2.cpp">
+      <Filter>GameScene2</Filter>
+    </ClCompile>
+    <ClCompile Include="NextSceneBlock.cpp" />
+    <ClCompile Include="BeforeSceneBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -203,6 +214,14 @@
       <Filter>GameScene1</Filter>
     </ClInclude>
     <ClInclude Include="JumpAdder.h" />
+    <ClInclude Include="GameScene2.h">
+      <Filter>GameScene2</Filter>
+    </ClInclude>
+    <ClInclude Include="Player2.h">
+      <Filter>GameScene2</Filter>
+    </ClInclude>
+    <ClInclude Include="NextSceneBlock.h" />
+    <ClInclude Include="BeforeSceneBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

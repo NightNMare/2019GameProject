@@ -5,13 +5,14 @@
 #include "AnimationRenderer.h"
 #include "ListAnimation.h"
 #include "SheetAnimation.h"
+#include "GameScene2.h"
 
 #define dt TimeManager::GetDeltaTime()
 
 Player::Player()
 	:GameObject(L"player.png"),		//GameObject(animRenderer = new AnimationRenderer), 애니메이션렌더러를 사용합니다. 일반적인 이미지 렌더러를 사용하시는 것은 TestObject를 참고하세요.
 	moveSpeed(3.0f*80.0f),
-	col(*transform, Vector2(32.0f, 29.0f))// 32, 29
+	col(*transform, Vector2(28.0f, 29.0f))// 32, 29
 {
 	//애니메이션 적용 방법
 	//ListAnimation(사진 여러장으로 애니메이션을 만듦)
@@ -90,7 +91,6 @@ void Player::Update()
 	//Scene 전환
 	//if (InputManager::GetMyKeyState(VK_SPACE))
 		//Scene::ChangeScene(new GameScene());
-
 }
 
 void Player::LateUpdate()
@@ -152,6 +152,12 @@ void Player::LateUpdate()
 		}
 	}
 
+	for (auto& n : nexts) {
+		if (n->col.Intersected(col)) {
+			Scene::ChangeScene(new GameScene2());
+		}
+	}
+
 	if (isDie) { //죽었을때
 		GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
 		gs.ydt->transform->SetScale(1.0f, 1.0f);
@@ -179,6 +185,7 @@ void Player::RestartScene()
 			j->transform->SetScale(1.0f, 1.0f);
 		}
 	}
+	jumpCount = 0;
 	GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
 	gs.ydt->transform->SetScale(0.0f, 0.0f);
 	gs.white->transform->SetScale(0.0f, 0.0f);

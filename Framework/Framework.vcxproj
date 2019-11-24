@@ -129,6 +129,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationRenderer.cpp" />
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="BeforeSceneBlock.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -139,11 +140,14 @@
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameScene2.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JumpAdder.cpp" />
     <ClCompile Include="ListAnimation.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NextSceneBlock.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player2.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RestartText.cpp" />
@@ -164,6 +168,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationRenderer.h" />
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="BeforeSceneBlock.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Collision.h" />
@@ -174,11 +179,14 @@
     <ClInclude Include="Framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameScene2.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="JumpAdder.h" />
     <ClInclude Include="ListAnimation.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="NextSceneBlock.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Player2.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RestartText.h" />
