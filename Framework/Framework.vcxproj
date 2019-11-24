@@ -141,6 +141,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameScene2.cpp" />
+    <ClCompile Include="GameScene3.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JumpAdder.cpp" />
     <ClCompile Include="ListAnimation.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="NextSceneBlock.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player2.cpp" />
+    <ClCompile Include="Player3.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RestartText.cpp" />
@@ -180,6 +182,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameScene2.h" />
+    <ClInclude Include="GameScene3.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="JumpAdder.h" />
     <ClInclude Include="ListAnimation.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="NextSceneBlock.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player2.h" />
+    <ClInclude Include="Player3.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RestartText.h" />

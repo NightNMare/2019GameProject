@@ -31,6 +31,9 @@
     <Filter Include="GameScene2">
       <UniqueIdentifier>{7fceecc6-79b0-4234-b33b-b60e65cdbf8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameScene3">
+      <UniqueIdentifier>{3e796797-8abf-4295-af4a-8939d310f937}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D2DApp.cpp">
@@ -124,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="NextSceneBlock.cpp" />
     <ClCompile Include="BeforeSceneBlock.cpp" />
+    <ClCompile Include="Player3.cpp">
+      <Filter>GameScene3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene3.cpp">
+      <Filter>GameScene3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -222,6 +231,12 @@
     </ClInclude>
     <ClInclude Include="NextSceneBlock.h" />
     <ClInclude Include="BeforeSceneBlock.h" />
+    <ClInclude Include="Player3.h">
+      <Filter>GameScene3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene3.h">
+      <Filter>GameScene3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

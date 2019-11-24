@@ -61,7 +61,9 @@ void Player::Update()
 			if (MaxjumpCount > jumpCount) {
 				velocity.y = 10000.0f*dt;
 			}
-
+			if (IsinAir&&jumpCount == 0) {
+				velocity.y = 10000.0f*dt;
+			}
 		}
 		if (InputManager::GetMyKeyState(VK_SPACE)) {
 			if (MaxjumpCount > jumpCount) {
@@ -95,7 +97,7 @@ void Player::Update()
 
 void Player::LateUpdate()
 {
-
+	IsinAir = true;
 	if (velocity.y >= 1200.0f)
 		velocity.y = 1200.0f;
 	transform->position.y += velocity.y * dt;
@@ -123,6 +125,8 @@ void Player::LateUpdate()
 			}
 		}
 	}
+
+
 	for (auto& t : traps) {
 		if (t->col->Intersected(col)) {
 			isDie = true;

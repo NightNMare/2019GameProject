@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Player2.h"
 #include "InputManager.h"
-#include "GameScene.h"
+#include "GameScene3.h"
 #include "AnimationRenderer.h"
 #include "ListAnimation.h"
 #include "SheetAnimation.h"
@@ -61,6 +61,9 @@ void Player2::Update()
 			if (MaxjumpCount > jumpCount) {
 				velocity.y = 10000.0f*dt;
 			}
+			if (IsinAir&&jumpCount == 0) {
+				velocity.y = 10000.0f*dt;
+			}
 
 		}
 		if (InputManager::GetMyKeyState(VK_SPACE)) {
@@ -96,7 +99,7 @@ void Player2::Update()
 
 void Player2::LateUpdate()
 {
-
+	IsinAir = true;
 	if (velocity.y >= 1200.0f)
 		velocity.y = 1200.0f;
 	transform->position.y += velocity.y * dt;
@@ -150,6 +153,12 @@ void Player2::LateUpdate()
 				j->isUsed = true;
 				jumpCount--;
 			}
+		}
+	}
+
+	for (auto& n : nexts) {
+		if (n->col.Intersected(col)) {
+			Scene::ChangeScene(new GameScene3());
 		}
 	}
 

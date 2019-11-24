@@ -28,7 +28,7 @@ public:
 	std::vector<JumpAdder*> jumps;
 	std::vector<NextSceneBlock*> nexts;
 	std::vector<BeforeSceneBlock*> befores;
-	Vector2 firstPos = { 320.0f,432.0f };
+	Vector2 firstPos = { 320.0f,368.0f };
 
 	int playerNumber; //1,2,3,4
 	int MaxjumpCount = 2;
