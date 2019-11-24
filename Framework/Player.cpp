@@ -57,11 +57,11 @@ void Player::Update()
 			transform->SetScale(-1.0f, 1.0);
 		}
 		if (InputManager::GetKeyDown(VK_SPACE)) {
-			if (MaxjumpCount - 1 == jumpCount) {
-				velocity.y = 100.0f;
+			if (MaxjumpCount > jumpCount) {
+				velocity.y = 10000.0f*dt;
 			}
+
 		}
-		static int a = 0;
 		if (InputManager::GetMyKeyState(VK_SPACE)) {
 			if (MaxjumpCount > jumpCount) {
 				if (dtLimit <= 0.5f) {
@@ -74,7 +74,6 @@ void Player::Update()
 			}
 		}
 		if (InputManager::GetKeyUp(VK_SPACE)) {
-			a = 0;
 			if (jumpCount < MaxjumpCount)
 				jumpCount++;
 			if (!IsinAir) {
@@ -143,6 +142,16 @@ void Player::LateUpdate()
 			}
 		}
 	}
+	for (auto& j : jumps) {
+		if (j->col.Intersected(col)) {
+			if (!j->isUsed) {
+				j->transform->SetScale(0.0f, 0.0f);
+				j->isUsed = true;
+				jumpCount--;
+			}
+		}
+	}
+
 	if (isDie) { //Á×¾úÀ»¶§
 		GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
 		gs.ydt->transform->SetScale(1.0f, 1.0f);
@@ -164,6 +173,12 @@ void Player::RestartScene()
 		tmp = firstPos;
 	}
 	transform->SetPosition(tmp.x, tmp.y);
+	for (auto& j : jumps) {
+		if (j->isUsed) {
+			j->isUsed = false;
+			j->transform->SetScale(1.0f, 1.0f);
+		}
+	}
 	GameScene& gs = ((GameScene&)Scene::GetCurrentScene());
 	gs.ydt->transform->SetScale(0.0f, 0.0f);
 	gs.white->transform->SetScale(0.0f, 0.0f);

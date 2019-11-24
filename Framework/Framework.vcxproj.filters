@@ -25,6 +25,9 @@
     <Filter Include="Components\Font">
       <UniqueIdentifier>{0ad3521c-588b-46a2-9573-b045e76a0a4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameScene1">
+      <UniqueIdentifier>{60c01900-c7c5-4815-9b79-f8e592b6e76c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D2DApp.cpp">
@@ -55,8 +58,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Collider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -105,6 +106,13 @@
     <ClCompile Include="SaveObject.cpp" />
     <ClCompile Include="YouDieText.cpp" />
     <ClCompile Include="RestartText.cpp" />
+    <ClCompile Include="GameScene.cpp">
+      <Filter>GameScene1</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>GameScene1</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpAdder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -140,8 +148,6 @@
     <ClInclude Include="Component.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Collider.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -190,6 +196,13 @@
     <ClInclude Include="SaveObject.h" />
     <ClInclude Include="YouDieText.h" />
     <ClInclude Include="RestartText.h" />
+    <ClInclude Include="GameScene.h">
+      <Filter>GameScene1</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>GameScene1</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpAdder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

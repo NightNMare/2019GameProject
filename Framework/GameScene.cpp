@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GameScene.h"
-#include "Player.h"
 #include "Framework.h"
 #include <vector>
 
@@ -9,6 +8,7 @@ void GameScene::Initialize()
 	std::vector<WallObject*> walls;
 	std::vector<Trap*> traps;
 	std::vector<SaveObject*> saves;
+	std::vector<JumpAdder*> jumps;
 	
 	
 	int winwidth = Framework::GetInstance().GetWinApp().GetScreenWidth();
@@ -25,7 +25,7 @@ void GameScene::Initialize()
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1,
-				1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+				1,0,0,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 				1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
 				1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -58,6 +58,11 @@ void GameScene::Initialize()
 				save->savenum = savenum++;
 				saves.push_back(save);
 			}
+			else if (a[b] == 4) {
+				JumpAdder* jump = (JumpAdder*)PushBackGameObject(new JumpAdder());
+				jump->transform->SetPosition((float)j, (float)i);
+				jumps.push_back(jump);
+			}
 			b++;
 		}
 	}
@@ -65,6 +70,7 @@ void GameScene::Initialize()
 	player->traps = traps;
 	player->walls = walls;
 	player->saves = saves;
+	player->jumps = jumps;
 
 	white = (GameObject*)PushBackGameObject(new GameObject(L"alphawhite65.png"));
 	white->transform->SetPosition(320.0f, 240.0f);

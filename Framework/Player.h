@@ -7,6 +7,7 @@
 #include "TimeManager.h"
 #include "Trap.h"
 #include "SaveObject.h"
+#include "JumpAdder.h"
 #define dt TimeManager::GetDeltaTime()
 //Player는 임의로 생성한 객체입니다.
 //게임 내의 오브젝트는 GameObject객체를 상속받아 생성하여야합니다.
@@ -22,6 +23,7 @@ public:
 	std::vector<WallObject*> walls;
 	std::vector<Trap*> traps;
 	std::vector<SaveObject*> saves;
+	std::vector<JumpAdder*> jumps;
 	Vector2 firstPos = { 300.0f,300.0f };
 
 	int playerNumber; //1,2,3,4
