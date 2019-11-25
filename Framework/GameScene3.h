@@ -8,6 +8,7 @@
 #include "RestartText.h"
 #include "JumpAdder.h"
 #include "NextSceneBlock.h"
+#include "EndingText.h"
 
 //장면을 관리할 객체가 필요합니다.
 //Scene을 상속받아 객체를 생성합니다.
@@ -21,4 +22,5 @@ public:
 	YouDieText* ydt;
 	GameObject* white;
 	RestartText* rst;
+	EndingText* edt;
 };

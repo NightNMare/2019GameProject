@@ -133,6 +133,7 @@
     <ClCompile Include="GameScene3.cpp">
       <Filter>GameScene3</Filter>
     </ClCompile>
+    <ClCompile Include="EndingText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinApp.h">
@@ -237,6 +238,7 @@
     <ClInclude Include="GameScene3.h">
       <Filter>GameScene3</Filter>
     </ClInclude>
+    <ClInclude Include="EndingText.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">

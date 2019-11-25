@@ -10,26 +10,27 @@ void GameScene3::Initialize()
 	std::vector<SaveObject*> saves;
 	std::vector<JumpAdder*> jumps;
 	std::vector<NextSceneBlock*> nexts;
+	std::vector<WallObject*> endings;
 
 	int winwidth = Framework::GetInstance().GetWinApp().GetScreenWidth();
 	int winheight = Framework::GetInstance().GetWinApp().GetScreenHeight();
-	//1 벽, 2 가시, 3 세이브포인트, 4 추가점프, -1 다음 맵
+	//1 벽, 2 가시, 3 세이브포인트, 4 추가점프, -1 다음 맵, -2 엔딩 글씨
 
 	int a[] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-				1,0,0,0,0,0,1,0,0,3,0,0,1,0,0,0,0,0,1,1,
-				1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,2,4,1,0,0,1,2,4,1,0,0,1,2,4,1,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,4,2,1,0,0,1,4,2,1,0,0,1,4,2,1,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,
-				1,2,4,1,0,0,1,2,4,1,0,0,1,2,4,1,0,0,1,1,
-				1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,-1,
-				1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,-1,
-				1,1,1,1,2,2,1,2,2,1,2,2,1,2,2,1,2,2,1,1
+				1,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,1,
+				1,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,1,
+				1,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,1,
+				1,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,1,
+				1,0,2,2,2,0,0,0,2,0,0,0,2,0,0,0,4,2,0,1,
+				1,4,0,0,2,0,0,0,2,0,0,0,2,0,2,2,0,2,0,1,
+				1,0,0,0,2,0,0,0,0,0,0,0,2,2,0,0,0,2,0,1,
+				1,0,4,0,2,2,4,0,0,0,0,0,2,0,0,0,4,2,0,1,
+				1,0,0,0,2,0,0,0,2,0,0,0,2,0,4,0,0,2,0,1,
+				1,2,2,0,2,0,0,0,2,0,0,0,2,0,0,2,2,2,0,1,
+				1,0,0,4,2,0,0,0,2,0,0,0,0,0,0,2,0,0,0,1,
+				1,0,0,0,2,0,0,0,2,0,3,0,0,0,2,0,0,0,0,-2,
+				1,0,0,0,2,0,0,0,2,0,0,0,2,2,2,0,0,0,0,-2,
+				1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 	};
 	int b = 0;
 	int savenum = 0;
@@ -69,6 +70,11 @@ void GameScene3::Initialize()
 				next->transform->SetPosition((float)j + 32, (float)i);
 				nexts.push_back(next);
 			}
+			else if (a[b] == -2) {
+				WallObject* ending = (WallObject*)PushBackGameObject(new WallObject());
+				ending->transform->SetPosition((float)j + 32, (float)i);
+				endings.push_back(ending);
+			}
 
 			b++;
 		}
@@ -79,6 +85,7 @@ void GameScene3::Initialize()
 	player->saves = saves;
 	player->jumps = jumps;
 	player->nexts = nexts;
+	player->endings = endings;
 
 	white = (GameObject*)PushBackGameObject(new GameObject(L"alphawhite65.png"));
 	white->transform->SetPosition(320.0f, 240.0f);
@@ -91,5 +98,9 @@ void GameScene3::Initialize()
 	rst = (RestartText*)PushBackGameObject(new RestartText());
 	rst->transform->SetPosition(320.0f - 128.0f, 240.0f);
 	rst->transform->SetScale(0.0f, 0.0f);
+
+	edt = (EndingText*)PushBackGameObject(new EndingText());
+	edt->transform->SetPosition(320.0f-96.0f, 240.0f-20.0f);
+	edt->transform->SetScale(0.0f, 0.0f);
 }
 

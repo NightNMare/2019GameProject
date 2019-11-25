@@ -135,6 +135,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D2DApp.cpp" />
+    <ClCompile Include="EndingText.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="Framework.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D2DApp.h" />
+    <ClInclude Include="EndingText.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontRenderer.h" />
     <ClInclude Include="Framework.h" />

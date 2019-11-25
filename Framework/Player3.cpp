@@ -5,6 +5,7 @@
 #include "AnimationRenderer.h"
 #include "ListAnimation.h"
 #include "SheetAnimation.h"
+#include "Framework.h"
 
 #define dt TimeManager::GetDeltaTime()
 
@@ -57,11 +58,16 @@ void Player3::Update()
 			transform->SetScale(-1.0f, 1.0);
 		}
 		if (InputManager::GetKeyDown(VK_SPACE)) {
-			if (MaxjumpCount > jumpCount) {
-				velocity.y = 10000.0f*dt;
+			if (jumpCount == 0) {
+				velocity.y = 0.0f;
+			}
+			else if (MaxjumpCount > jumpCount) {
+				//velocity.y = 10000.0f*dt;
+				velocity.y = 50.0f;
 			}
 			if (IsinAir&&jumpCount == 0) {
-				velocity.y = 10000.0f*dt;
+				velocity.y = 50.0f;
+				//velocity.y = 10000.0f*dt;
 			}
 
 		}
@@ -69,7 +75,7 @@ void Player3::Update()
 			if (MaxjumpCount > jumpCount) {
 				if (dtLimit <= 0.5f) {
 					addForceY(-1 * jumpPower*dt);
-					jumpPower -= 70000.0f*dt;
+					jumpPower -= 65000.0f*dt;
 					if (jumpPower <= 0.0f)
 						jumpPower = 0.0f;
 					dtLimit += dt;
@@ -83,12 +89,14 @@ void Player3::Update()
 				IsinAir = true;
 			}
 			dtLimit = 0.0f;
-			jumpPower = 9000.0f;
+			jumpPower = 8000.0f;
 		}
 		addForceY(1350.0f* dt);
 	}
-	if (InputManager::GetKeyDown('R')) {
-		RestartScene();
+	if (!isEnd) {
+		if (InputManager::GetKeyDown('R')) {
+			RestartScene();
+		}
 	}
 	//Scene 전환
 	//if (InputManager::GetMyKeyState(VK_SPACE))
@@ -99,6 +107,19 @@ void Player3::Update()
 void Player3::LateUpdate()
 {
 	IsinAir = true;
+	for (auto& w : walls) {
+		if (w->wallcol.Intersected(col)) {
+			Vector2 vec = w->transform->position - transform->position;
+			float angle = atan2(vec.x, vec.y);
+			if (angle < -0.8f && angle >= -2.35f) {
+				transform->position.x += moveSpeed * dt; //벽의 오른쪽과 부딪힘
+			}
+			else if (angle < 2.35f && angle >= 0.8f) {
+				transform->position.x -= moveSpeed * dt; //벽의 왼쪽과 부딪힘
+			}
+
+		}
+	}
 	if (velocity.y >= 1200.0f)
 		velocity.y = 1200.0f;
 	transform->position.y += velocity.y * dt;
@@ -114,13 +135,13 @@ void Player3::LateUpdate()
 				//p->jumpCount = p->maxJumpCount;
 				transform->position.y = w->transform->position.y - 16.0f - 14.5f;
 			}
-			else if (angle < -0.8f && angle >= -2.35f) {
-				transform->position.x += moveSpeed * dt; //벽의 오른쪽과 부딪힘
-			}
-			else if (angle < 2.35f && angle >= 0.8f) {
-				transform->position.x -= moveSpeed * dt; //벽의 왼쪽과 부딪힘
-			}
-			else {
+			//else if (angle < -0.8f && angle >= -2.35f) {
+			//	transform->position.x += moveSpeed * dt; //벽의 오른쪽과 부딪힘
+			//}
+			//else if (angle < 2.35f && angle >= 0.8f) {
+			//	transform->position.x -= moveSpeed * dt; //벽의 왼쪽과 부딪힘
+			//}
+			else if (angle > 2.35) {
 				transform->position.y += moveSpeed * dt;
 				velocity.y = 0;
 			}
@@ -154,14 +175,31 @@ void Player3::LateUpdate()
 			}
 		}
 	}
+	GameScene3& gs = ((GameScene3&)Scene::GetCurrentScene());
 
+	if (isEnd) {
+		Sleep(2000);
+		exit(0);
+	}
 
 	if (isDie) { //죽었을때
-		GameScene3& gs = ((GameScene3&)Scene::GetCurrentScene());
 		gs.ydt->transform->SetScale(1.0f, 1.0f);
 		gs.white->transform->SetScale(1.0f, 1.0f);
 		gs.rst->transform->SetScale(1.0f, 1.0f);
 	}
+
+	for (auto& e : endings) {
+		if (e->wallcol.Intersected(col)) {
+			isDie = true;
+			isEnd = true;
+			gs.white->transform->SetScale(1.0f, 1.0f);
+			gs.edt->transform->SetScale(1.0f, 1.0f);
+			transform->SetScale(0.0f, 0.0f);
+		}
+	}
+
+
+
 }
 
 void Player3::RestartScene()

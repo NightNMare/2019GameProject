@@ -28,15 +28,17 @@ public:
 	std::vector<JumpAdder*> jumps;
 	std::vector<NextSceneBlock*> nexts;
 	std::vector<BeforeSceneBlock*> befores;
+	std::vector<WallObject*> endings;
 	Vector2 firstPos = { 48.0f,432.0f };
 
 	int playerNumber; //1,2,3,4
 	int MaxjumpCount = 2;
 	int jumpCount = 0;
 	float dtLimit = 0.0f;
-	float jumpPower = 9000.0f;
+	float jumpPower = 8000.0f;
 	bool IsinAir = false;
 	bool isDie = false;
+	bool isEnd = false;
 	int saveNumber = -1;
 
 	Player3();					//Player»ý¼ºÀÚ

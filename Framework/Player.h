@@ -34,7 +34,7 @@ public:
 	int MaxjumpCount = 2;
 	int jumpCount = 0;
 	float dtLimit = 0.0f;
-	float jumpPower = 9000.0f;  
+	float jumpPower = 8000.0f;  
 	bool IsinAir = false;
 	bool isDie = false;
 	int saveNumber = -1;
